@@ -1,0 +1,62 @@
+<html>
+
+<head>
+
+    <script type="text/javascript"  src="jquery-3.1.0.min.js" type="text/javascript"></script>    
+    <script type="text/javascript"  src="angular.min.js"></script>
+    <script type="text/javascript" src="moment.js"></script>
+    
+
+</head>
+
+<body>
+
+    <div id="MainDIV" ng-app="App" ng-controller="Ctrl" data-ng-init="init()" >
+            <input type="text" ng-model="CheckListText" />
+            <input type="button" value="Add" ng-click="AddNewCheckList()" >
+            
+
+            <div ng-repeat="ck  in CheckList ">
+                   {{$index+1}} <input  type="checkbox"  ng-model="ck.checked"  >{{ck.Title}}<br/>
+                    <input type="button" value="Remove" ng-click="RemoveCheckList($index)" >
+            </div>
+           
+            
+            {{CheckList}}
+
+    </div>
+
+<script>
+
+    var App = angular.module('App', []);
+
+    App.controller('Ctrl', function($scope) {
+
+       
+
+        $scope.init = function()
+        {
+            $scope.CheckList = [];
+        }
+
+        $scope.AddNewCheckList = function()
+        {
+            var checkBox = {}
+            checkBox.checked = false;
+            checkBox.Title = $scope.CheckListText;
+            $scope.CheckList.push(checkBox);
+            
+            $scope.CheckListText = "";
+    
+        }
+
+        $scope.RemoveCheckList = function(pos)
+        {
+            $scope.CheckList.splice(pos, 1)
+        }
+    });
+
+</script>
+
+</body>
+</html>
