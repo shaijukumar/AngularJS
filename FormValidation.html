@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>  
+<body ng-app="myApp" ng-controller="validateCtrl">
+
+<h2>Validation Example</h2>
+
+<form  name="myForm" >
+
+<div>required -  invalid - {{myForm.user.$invalid}} : dirty - {{myForm.user.$dirty}} </div>
+<p>Username  <br>
+<input type="text" name="user" ng-model="user" required>
+<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">       
+        Username is required.
+</span>
+</p>
+
+<div>required -  invalid - {{myForm.Status.$invalid}} : dirty - {{myForm.Status.$dirty}} </div>
+<p>Status  <br>
+    <select name="Status" ng-model="Status" required>
+        <option value="v1">Status 1</option>
+        <option value="v2">Status 2</option>
+        <option value="v3">Status 3</option>
+    </select>
+    <span style="color:red" ng-show="myForm.Status.$dirty && myForm.Status.$invalid">       
+            Status is required.
+    </span>
+</p>
+
+
+<p>Email:<br>
+<input type="email" name="email" ng-model="email" required>
+<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+<span ng-show="myForm.email.$error.required">Email is required.</span>
+<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+</span>
+</p>
+
+<p>
+<input type="submit" ng-click="Submit()"
+ng-disabled="myForm.user.$dirty && myForm.user.$invalid" >
+</p>
+
+</form>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.user = '';
+    $scope.email = 'john.doe@gmail.com';
+    $scope.Status = "";
+
+
+    $scope.Submit = function(){    
+        $scope.myForm.user.$dirty= true
+        $scope.myForm.user.$invalid = true;
+
+        $scope.myForm.Status.$dirty= true
+        $scope.myForm.Status.$invalid = true;
+       
+    }
+});
+</script>
+
+</body>
+</html>
